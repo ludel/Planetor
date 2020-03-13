@@ -13,7 +13,7 @@ class RightLayout(QVBoxLayout):
         for _ in range(feature_count):
             label = QLabel()
             label.setStyleSheet('background-color: white; padding:2;')
-            label.setMaximumWidth(350)
+            label.setFixedWidth(350)
             self.data_corpus.addWidget(label)
 
         self.addLayout(self.data_corpus)

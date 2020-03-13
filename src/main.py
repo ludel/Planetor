@@ -21,7 +21,6 @@ class Widget(QWidget):
         super().__init__()
         self.left = LeftLayout()
         self.right = RightLayout(len(features_to_display))
-        self.current_graph = Graph()
 
         self.corpus = corpus
         self.order_by('semimajorAxis')
@@ -37,6 +36,9 @@ class Widget(QWidget):
         self.left.line_edit.textChanged.connect(self.searching)
         self.left.is_planet.stateChanged.connect(self.filter_is_planet)
         self.left.order_box.currentTextChanged.connect(self.order_by)
+
+        self.current_graph = Graph(self.corpus['Sun'])
+        self.right.addWidget(self.current_graph)
 
         # Main Layout
         self.horizontal_layout = QHBoxLayout()
@@ -67,13 +69,7 @@ class Widget(QWidget):
             self.right.data_corpus.itemAt(index).widget().setText(f'{value[0]}: {feature_value}')
 
     def update_graph(self, current_corpus):
-        old_widget = self.current_graph.widget
         self.current_graph.build_perihelion(current_corpus['perihelion'])
-
-        if old_widget is None:
-            self.right.addWidget(self.current_graph.widget)
-        else:
-            self.right.replaceWidget(old_widget, self.current_graph.widget)
 
     def searching(self, text):
         self.left.is_planet.setChecked(False)
