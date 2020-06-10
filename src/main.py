@@ -37,7 +37,7 @@ class Widget(QWidget):
         self.left.is_planet.stateChanged.connect(self.filter_is_planet)
         self.left.order_box.currentTextChanged.connect(self.order_by)
 
-        self.current_graph = Graph(self.corpus['Sun'])
+        self.current_graph = Graph()
         self.right.addWidget(self.current_graph)
 
         # Main Layout
@@ -69,7 +69,7 @@ class Widget(QWidget):
             self.right.data_corpus.itemAt(index).widget().setText(f'{value[0]}: {feature_value}')
 
     def update_graph(self, current_corpus):
-        self.current_graph.build_perihelion(current_corpus['perihelion'])
+        self.current_graph.build_perihelion(current_corpus)
 
     def searching(self, text):
         self.left.is_planet.setChecked(False)
